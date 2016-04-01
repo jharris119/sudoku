@@ -43,101 +43,108 @@ public class SudokuTest {
     }};
 
     public Set<Sudoku.Candidate> puzzle16x16 = new HashSet<Sudoku.Candidate>() {{
-        this.add(new Sudoku.Candidate(1,1,6));
         this.add(new Sudoku.Candidate(1,6,13));
-        this.add(new Sudoku.Candidate(1,9,8));
-        this.add(new Sudoku.Candidate(1,13,11));
-        this.add(new Sudoku.Candidate(1,14,2));
-        this.add(new Sudoku.Candidate(2,1,10));
-        this.add(new Sudoku.Candidate(2,2,13));
-        this.add(new Sudoku.Candidate(2,4,3));
-        this.add(new Sudoku.Candidate(2,6,12));
+        this.add(new Sudoku.Candidate(1,9,1));
+        this.add(new Sudoku.Candidate(1,10,10));
+        this.add(new Sudoku.Candidate(1,15,2));
+        this.add(new Sudoku.Candidate(1,16,8));
+        this.add(new Sudoku.Candidate(2,1,16));
+        this.add(new Sudoku.Candidate(2,2,15));
+        this.add(new Sudoku.Candidate(2,5,9));
+        this.add(new Sudoku.Candidate(2,8,4));
         this.add(new Sudoku.Candidate(2,11,11));
-        this.add(new Sudoku.Candidate(2,12,15));
-        this.add(new Sudoku.Candidate(2,13,6));
-        this.add(new Sudoku.Candidate(2,14,4));
-        this.add(new Sudoku.Candidate(3,4,7));
-        this.add(new Sudoku.Candidate(3,7,6));
-        this.add(new Sudoku.Candidate(3,8,4));
-        this.add(new Sudoku.Candidate(3,9,12));
-        this.add(new Sudoku.Candidate(3,12,10));
-        this.add(new Sudoku.Candidate(3,16,8));
-        this.add(new Sudoku.Candidate(4,1,9));
-        this.add(new Sudoku.Candidate(4,2,14));
-        this.add(new Sudoku.Candidate(4,3,11));
-        this.add(new Sudoku.Candidate(4,4,15));
-        this.add(new Sudoku.Candidate(4,7,16));
-        this.add(new Sudoku.Candidate(4,12,5));
-        this.add(new Sudoku.Candidate(4,15,1));
-        this.add(new Sudoku.Candidate(5,1,15));
-        this.add(new Sudoku.Candidate(5,2,1));
-        this.add(new Sudoku.Candidate(5,10,4));
-        this.add(new Sudoku.Candidate(5,12,8));
-        this.add(new Sudoku.Candidate(5,15,2));
-        this.add(new Sudoku.Candidate(5,16,10));
-        this.add(new Sudoku.Candidate(6,1,8));
-        this.add(new Sudoku.Candidate(6,2,5));
-        this.add(new Sudoku.Candidate(6,3,13));
-        this.add(new Sudoku.Candidate(6,11,7));
-        this.add(new Sudoku.Candidate(6,13,4));
-        this.add(new Sudoku.Candidate(7,5,4));
-        this.add(new Sudoku.Candidate(7,9,16));
-        this.add(new Sudoku.Candidate(7,10,5));
-        this.add(new Sudoku.Candidate(7,13,1));
-        this.add(new Sudoku.Candidate(7,14,8));
-        this.add(new Sudoku.Candidate(8,2,4));
-        this.add(new Sudoku.Candidate(8,3,10));
-        this.add(new Sudoku.Candidate(8,9,13));
-        this.add(new Sudoku.Candidate(8,11,1));
-        this.add(new Sudoku.Candidate(8,12,15));
-        this.add(new Sudoku.Candidate(8,13,3));
-        this.add(new Sudoku.Candidate(9,4,8));
-        this.add(new Sudoku.Candidate(9,8,12));
-        this.add(new Sudoku.Candidate(9,10,1));
-        this.add(new Sudoku.Candidate(9,16,13));
-        this.add(new Sudoku.Candidate(10,1,12));
-        this.add(new Sudoku.Candidate(10,5,3));
-        this.add(new Sudoku.Candidate(10,7,10));
-        this.add(new Sudoku.Candidate(10,15,16));
-        this.add(new Sudoku.Candidate(10,16,2));
-        this.add(new Sudoku.Candidate(11,6,16));
-        this.add(new Sudoku.Candidate(11,7,15));
-        this.add(new Sudoku.Candidate(11,9,7));
-        this.add(new Sudoku.Candidate(11,11,3));
-        this.add(new Sudoku.Candidate(11,14,10));
-        this.add(new Sudoku.Candidate(11,15,5));
-        this.add(new Sudoku.Candidate(12,1,4));
-        this.add(new Sudoku.Candidate(12,3,2));
-        this.add(new Sudoku.Candidate(12,6,1));
-        this.add(new Sudoku.Candidate(12,7,7));
-        this.add(new Sudoku.Candidate(12,8,5));
-        this.add(new Sudoku.Candidate(12,10,12));
-        this.add(new Sudoku.Candidate(12,11,13));
-        this.add(new Sudoku.Candidate(12,15,8));
-        this.add(new Sudoku.Candidate(13,1,13));
-        this.add(new Sudoku.Candidate(13,2,8));
-        this.add(new Sudoku.Candidate(13,4,15));
-        this.add(new Sudoku.Candidate(13,9,3));
-        this.add(new Sudoku.Candidate(13,11,9));
-        this.add(new Sudoku.Candidate(14,2,12));
-        this.add(new Sudoku.Candidate(14,3,14));
-        this.add(new Sudoku.Candidate(14,4,5));
-        this.add(new Sudoku.Candidate(14,6,10));
-        this.add(new Sudoku.Candidate(14,7,1));
-        this.add(new Sudoku.Candidate(15,1,1));
-        this.add(new Sudoku.Candidate(15,3,4));
-        this.add(new Sudoku.Candidate(13,5,7));
-        this.add(new Sudoku.Candidate(15,8,9));
-        this.add(new Sudoku.Candidate(15,9,10));
-        this.add(new Sudoku.Candidate(15,10,2));
-        this.add(new Sudoku.Candidate(15,12,6));
-        this.add(new Sudoku.Candidate(15,16,14));
-        this.add(new Sudoku.Candidate(16,4,9));
-        this.add(new Sudoku.Candidate(16,5,14));
+        this.add(new Sudoku.Candidate(2,14,7));
+        this.add(new Sudoku.Candidate(2,15,12));
+        this.add(new Sudoku.Candidate(2,16,3));
+        this.add(new Sudoku.Candidate(3,1,2));
+        this.add(new Sudoku.Candidate(3,2,12));
+        this.add(new Sudoku.Candidate(3,3,10));
+        this.add(new Sudoku.Candidate(3,8,14));
+        this.add(new Sudoku.Candidate(3,9,15));
+        this.add(new Sudoku.Candidate(3,10,13));
+        this.add(new Sudoku.Candidate(3,13,16));
+        this.add(new Sudoku.Candidate(4,3,7));
+        this.add(new Sudoku.Candidate(4,5,2));
+        this.add(new Sudoku.Candidate(4,7,12));
+        this.add(new Sudoku.Candidate(4,9,16));
+        this.add(new Sudoku.Candidate(4,11,5));
+        this.add(new Sudoku.Candidate(4,16,10));
+        this.add(new Sudoku.Candidate(5,2,8));
+        this.add(new Sudoku.Candidate(5,8,2));
+        this.add(new Sudoku.Candidate(5,9,6));
+        this.add(new Sudoku.Candidate(5,10,5));
+        this.add(new Sudoku.Candidate(5,11,14));
+        this.add(new Sudoku.Candidate(5,15,7));
+        this.add(new Sudoku.Candidate(6,2,3));
+        this.add(new Sudoku.Candidate(6,3,5));
+        this.add(new Sudoku.Candidate(6,5,15));
+        this.add(new Sudoku.Candidate(6,8,10));
+        this.add(new Sudoku.Candidate(6,10,2));
+        this.add(new Sudoku.Candidate(6,12,4));
+        this.add(new Sudoku.Candidate(6,13,8));
+        this.add(new Sudoku.Candidate(6,16,6));
+        this.add(new Sudoku.Candidate(7,1,12));
+        this.add(new Sudoku.Candidate(7,2,9));
+        this.add(new Sudoku.Candidate(7,4,2));
+        this.add(new Sudoku.Candidate(7,7,11));
+        this.add(new Sudoku.Candidate(7,14,5));
+        this.add(new Sudoku.Candidate(8,1,6));
+        this.add(new Sudoku.Candidate(8,2,11));
+        this.add(new Sudoku.Candidate(8,3,4));
+        this.add(new Sudoku.Candidate(8,6,16));
+        this.add(new Sudoku.Candidate(8,11,3));
+        this.add(new Sudoku.Candidate(8,12,8));
+        this.add(new Sudoku.Candidate(9,5,13));
+        this.add(new Sudoku.Candidate(9,6,12));
+        this.add(new Sudoku.Candidate(9,11,8));
+        this.add(new Sudoku.Candidate(9,14,4));
+        this.add(new Sudoku.Candidate(9,15,14));
+        this.add(new Sudoku.Candidate(9,16,1));
+        this.add(new Sudoku.Candidate(10,3,11));
+        this.add(new Sudoku.Candidate(10,10,16));
+        this.add(new Sudoku.Candidate(10,13,12));
+        this.add(new Sudoku.Candidate(10,15,5));
+        this.add(new Sudoku.Candidate(10,16,13));
+        this.add(new Sudoku.Candidate(11,1,13));
+        this.add(new Sudoku.Candidate(11,4,12));
+        this.add(new Sudoku.Candidate(11,5,4));
+        this.add(new Sudoku.Candidate(11,7,3));
+        this.add(new Sudoku.Candidate(11,9,14));
+        this.add(new Sudoku.Candidate(11,12,10));
+        this.add(new Sudoku.Candidate(11,14,6));
+        this.add(new Sudoku.Candidate(11,15,8));
+        this.add(new Sudoku.Candidate(12,2,7));
+        this.add(new Sudoku.Candidate(12,6,9));
+        this.add(new Sudoku.Candidate(12,7,16));
+        this.add(new Sudoku.Candidate(12,8,1));
+        this.add(new Sudoku.Candidate(12,9,12));
+        this.add(new Sudoku.Candidate(12,15,10));
+        this.add(new Sudoku.Candidate(13,1,15));
+        this.add(new Sudoku.Candidate(13,6,2));
+        this.add(new Sudoku.Candidate(13,8,6));
+        this.add(new Sudoku.Candidate(13,10,14));
+        this.add(new Sudoku.Candidate(13,12,5));
+        this.add(new Sudoku.Candidate(13,14,8));
+        this.add(new Sudoku.Candidate(14,4,8));
+        this.add(new Sudoku.Candidate(14,7,9));
+        this.add(new Sudoku.Candidate(14,8,11));
+        this.add(new Sudoku.Candidate(14,9,10));
+        this.add(new Sudoku.Candidate(14,14,1));
+        this.add(new Sudoku.Candidate(14,15,6));
+        this.add(new Sudoku.Candidate(14,16,15));
+        this.add(new Sudoku.Candidate(15,1,4));
+        this.add(new Sudoku.Candidate(15,2,14));
+        this.add(new Sudoku.Candidate(15,3,2));
+        this.add(new Sudoku.Candidate(15,6,15));
+        this.add(new Sudoku.Candidate(15,9,11));
+        this.add(new Sudoku.Candidate(15,12,1));
+        this.add(new Sudoku.Candidate(15,15,9));
+        this.add(new Sudoku.Candidate(15,16,7));
+        this.add(new Sudoku.Candidate(16,1,11));
+        this.add(new Sudoku.Candidate(16,2,1));
         this.add(new Sudoku.Candidate(16,7,4));
-        this.add(new Sudoku.Candidate(16,8,6));
-        this.add(new Sudoku.Candidate(16,9,15));
-        this.add(new Sudoku.Candidate(16,12,11));
+        this.add(new Sudoku.Candidate(16,8,13));
+        this.add(new Sudoku.Candidate(16,11,7));
     }};
 
     public Sudoku sudoku1, sudoku2;
@@ -181,8 +188,8 @@ public class SudokuTest {
     @Test
     public void testSolve() throws Exception {
         sudoku1.print();
-
         sudoku1.solve();
+        sudoku1.print();
         for (int i = 1; i <= sudoku1.size; ++i) {
             final int row = i;
             assertEquals(sudoku1.size, sudoku1.solution.stream()
@@ -211,12 +218,35 @@ public class SudokuTest {
             );
         }
 
-        sudoku1.print();
-
-
-//        sudoku2.solve();
-//
-//        System.err.println(sudoku2.solution);
-//        assertTrue(false);
+        sudoku2.print();
+        sudoku2.solve();
+        sudoku2.print();
+        for (int i = 1; i <= sudoku2.size; ++i) {
+            final int row = i;
+            assertEquals(sudoku2.size, sudoku2.solution.stream()
+                    .filter(candidate -> candidate.row == row)
+                    .map(candidate -> candidate.digit)
+                    .collect(Collectors.toSet())
+                    .size()
+            );
+        }
+        for (int i = 1; i <= sudoku2.size; ++i) {
+            final int column = i;
+            assertEquals(sudoku2.size, sudoku2.solution.stream()
+                    .filter(candidate -> candidate.column == column)
+                    .map(candidate -> candidate.digit)
+                    .collect(Collectors.toSet())
+                    .size()
+            );
+        }
+        for (int i = 1; i <= sudoku2.size; ++i) {
+            final int box = i;
+            assertEquals(sudoku2.size, sudoku2.solution.stream()
+                    .filter(candidate -> sudoku2.getBox(candidate) == box)
+                    .map(candidate -> candidate.digit)
+                    .collect(Collectors.toSet())
+                    .size()
+            );
+        }
     }
 }
