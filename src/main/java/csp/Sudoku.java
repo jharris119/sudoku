@@ -34,58 +34,26 @@ public class Sudoku {
     }
 
     public void print() {
-        if (solution == null) {
-            solve();
+        int cellSize = (int) Math.ceil(Math.log10(size));
+
+        int[][] matrix = new int[size][size];
+        for (int[] row : matrix) {
+            Arrays.fill(row, 0);
         }
 
-        if (solution == null) {
-            System.out.println("No solution.");
-            return;
-        }
+        Set<Candidate> toPrint = solution == null ? givens : solution;
+        toPrint.forEach(candidate -> matrix[candidate.row - 1][candidate.column - 1] = candidate.digit);
 
-        int cellsize = (int) Math.ceil(Math.log10(size));
-
-        int[][] asGrid = new int[size][size];
-        solution.forEach(candidate -> asGrid[candidate.row - 1][candidate.column - 1] = candidate.digit);
-
-        StringBuilder sb = new StringBuilder(topOrBottomRow(cellsize)).append("\n");
+        StringBuilder sb = new StringBuilder(topOrBottomRow(cellSize)).append("\n");
         for (int row = 0; row < size; ++row) {
-            sb.append(rowOfDigits(asGrid[row], cellsize)).append("\n");
+            sb.append(rowOfDigits(matrix[row], cellSize)).append("\n");
             if (row % boxesPerColumn == boxesPerColumn - 1 && row + 1 != size) {
-                sb.append(separatorRow(cellsize)).append("\n");
+                sb.append(separatorRow(cellSize)).append("\n");
             }
         }
-        sb.append(topOrBottomRow(cellsize));
+        sb.append(topOrBottomRow(cellSize));
         System.out.println(sb.toString());
     }
-
-    public String rowOfDigits(int[] row, int cellWidth) {
-        StringBuilder sb = new StringBuilder("|");
-        StringJoiner joiner;
-        List<List<Integer>> partitions = Lists.partition(Ints.asList(row), boxesPerRow);
-
-        for (List<Integer> sublist : partitions) {
-            joiner = new StringJoiner(" ", "", "|");
-            for (Integer i : sublist) {
-                joiner.add(String.format("%" + cellWidth + "d", i));
-            }
-            sb.append(joiner.toString());
-        }
-        return sb.toString();
-    }
-
-    public String separatorRow(int cellWidth) {
-        StringBuilder sb = new StringBuilder("|");
-        for (int i = 0; i < boxesPerRow; ++i) {
-            sb.append(Strings.repeat("-", (cellWidth + 1) * boxesPerColumn - 1)).append("+");
-        }
-        return sb.replace(sb.length() - 1, sb.length(), "|").toString();
-    }
-
-    public String topOrBottomRow(int cellWidth) {
-        return Strings.repeat("-", ((cellWidth + 1) * boxesPerColumn) * boxesPerRow + 1);
-    }
-
 
     private Set<Constraint> makeConstraints() {
         Set<Constraint> constraints = new HashSet();
@@ -158,6 +126,36 @@ public class Sudoku {
 
     private int ceilDiv(int x, int y) {
         return (x + y - 1) / y;
+    }
+
+    /* ************************************************************************
+     *  printing utility methods
+     * ******************+*****************************************************/
+    private String rowOfDigits(int[] row, int cellWidth) {
+        StringBuilder sb = new StringBuilder("|");
+        StringJoiner joiner;
+        List<List<Integer>> partitions = Lists.partition(Ints.asList(row), boxesPerRow);
+
+        for (List<Integer> sublist : partitions) {
+            joiner = new StringJoiner(" ", "", "|");
+            for (Integer i : sublist) {
+                joiner.add(String.format("%" + cellWidth + "s", i == 0 ? "\u00B7" : i));
+            }
+            sb.append(joiner.toString());
+        }
+        return sb.toString();
+    }
+
+    private String separatorRow(int cellWidth) {
+        StringBuilder sb = new StringBuilder("|");
+        for (int i = 0; i < boxesPerRow; ++i) {
+            sb.append(Strings.repeat("-", (cellWidth + 1) * boxesPerColumn - 1)).append("+");
+        }
+        return sb.replace(sb.length() - 1, sb.length(), "|").toString();
+    }
+
+    private String topOrBottomRow(int cellWidth) {
+        return Strings.repeat("-", ((cellWidth + 1) * boxesPerColumn) * boxesPerRow + 1);
     }
 
     static class Candidate {

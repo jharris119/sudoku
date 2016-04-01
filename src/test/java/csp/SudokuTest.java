@@ -180,6 +180,8 @@ public class SudokuTest {
 
     @Test
     public void testSolve() throws Exception {
+        sudoku1.print();
+
         sudoku1.solve();
         for (int i = 1; i <= sudoku1.size; ++i) {
             final int row = i;
@@ -216,28 +218,5 @@ public class SudokuTest {
 //
 //        System.err.println(sudoku2.solution);
 //        assertTrue(false);
-    }
-
-    public Set<Integer> getDigitsInRow(Sudoku sudoku, int row) {
-        return sudoku.solution.stream()
-                .filter(candidate -> candidate.row == row)
-                .map(candidate -> candidate.digit)
-                .collect(Collectors.toSet());
-    }
-
-    @Test
-    public void testPrintRowOfDigits() throws Exception {
-        int[] digits = new int[] { 6, 8, 14, 3, 5, 10, 1, 11, 9, 2, 4, 7, 12, 15, 16, 13 };
-        assertEquals("| 6  8 14  3| 5 10  1 11| 9  2  4  7|12 15 16 13|", sudoku2.rowOfDigits(digits, 2));
-    }
-
-    @Test
-    public void testPrintSeparatorRow() throws Exception {
-        assertEquals("|-----------+-----------+-----------+-----------|", sudoku2.separatorRow(2));
-    }
-
-    @Test
-    public void testPrintTopOrBottomRow() throws Exception {
-        assertEquals("-------------------------------------------------", sudoku2.topOrBottomRow(2));
     }
 }
