@@ -20,6 +20,35 @@ public class Sudoku {
         this.boxesPerRow = (int) (Math.sqrt(this.size));
     }
 
+    public static Sudoku read(List<List<Integer>> initial) {
+        Set<Candidate> candidates = new HashSet();
+
+        int rowIndex = 0, columnIndex;
+        Integer digit;
+        List<Integer> row;
+        Iterator<List<Integer>> rowIterator = initial.iterator();
+        Iterator<Integer> columnIterator;
+
+        while (rowIterator.hasNext()) {
+            row = rowIterator.next();
+            ++rowIndex;
+
+            columnIndex = 0;
+            columnIterator = row.iterator();
+            while (columnIterator.hasNext()) {
+                digit = columnIterator.next();
+                ++columnIndex;
+
+                if (digit == null) {
+                    continue;
+                }
+                candidates.add(new Candidate(rowIndex, columnIndex, digit));
+            }
+        }
+
+        return new Sudoku(candidates);
+    }
+
     public Set<Candidate> solve() {
         if (solution != null) {
             return solution;
