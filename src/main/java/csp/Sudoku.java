@@ -3,6 +3,7 @@ package csp;
 import com.google.common.base.Strings;
 import com.google.common.collect.Lists;
 import com.google.common.primitives.Ints;
+import org.json.*;
 
 import java.util.*;
 
@@ -18,6 +19,23 @@ public class Sudoku {
         this.size = getSize();
         this.boxesPerColumn = (int) (Math.sqrt(this.size));
         this.boxesPerRow = (int) (Math.sqrt(this.size));
+    }
+
+    public static Sudoku read(String json) {
+        HashSet<Candidate> givens = new HashSet<>(); 
+        JSONArray puzzle = new JSONObject(json).getJSONArray("puzzle"), rowElements;
+
+        for (int row = 0; row < puzzle.length(); ++row) {
+            rowElements = puzzle.getJSONArray(row);
+
+            for (int column = 0; column <= rowElements.length(); ++column) {
+                if (!rowElements.isNull(column)) {
+                    givens.add(new Candidate(row + 1, column + 1, rowElements.getInt(column)));
+                }
+            }
+        }
+
+        return new Sudoku(givens);
     }
 
     public static Sudoku read(List<List<Integer>> initial) {

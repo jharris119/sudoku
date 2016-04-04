@@ -157,15 +157,16 @@ public class SudokuTest {
 
     @Test
     public void testRead() throws Exception {
-        String json = "[[null, null, 3, 9, null, null, null, 8, 7]," +
-                       "[null, null, null, null, 1, 6, null, null, null]," +
-                       "[null, null, 7, null, 3, null, null, 9 null]," +
-                       "[6, 5, null, null, null, null, 8, null, 4]," +
-                       "[null, null, null, 6, null, null, null, 1, null]," +
-                       "[null, null, null, null, null, null, 7, null, null]," +
-                       "[null, null, null, null, 2, 8, null, 3, 9]," +
-                       "[9, null, 3, 1, null, null, null, null, null]," +
-                       "[null, 2, 5, null, null, null, null, null, null]";
+        String json = "{ puzzle: " +
+            "[[null, null, 6, 9, null, null, null, 8, 7]," +
+            "[null, null, null, null, 1, 6, null, null, null]," +
+            "[null, null, 7, null, 3, null, null, 9, null]," +
+            "[6, 5, null, null, null, null, 8, null, 4]," +
+            "[null, null, null, 6, null, null, null, 1, null]," +
+            "[null, null, null, null, null, null, 7, null, null]," +
+            "[null, null, null, null, 2, 8, null, 3, 9]," +
+            "[9, null, 3, 1, null, null, null, null, null]," +
+            "[null, 2, 5, null, null, null, null, null, null]]}";
         assertEquals(sudoku1, Sudoku.read(json));
     }
 
