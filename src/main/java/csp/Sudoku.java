@@ -179,6 +179,20 @@ public class Sudoku {
         return (x + y - 1) / y;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Sudoku sudoku = (Sudoku) o;
+        return size == sudoku.size &&
+                Objects.equals(givens, sudoku.givens);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(givens, size);
+    }
+
     /* ************************************************************************
      *  printing utility methods
      * ******************+*****************************************************/
