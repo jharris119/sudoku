@@ -19,6 +19,21 @@ public class Sudoku {
         this.size = getSize();
         this.boxesPerColumn = (int) (Math.sqrt(this.size));
         this.boxesPerRow = (int) (Math.sqrt(this.size));
+
+        if (this.boxesPerRow * this.boxesPerColumn != this.size) {
+            throw new IllegalArgumentException("boxesPerRow * boxesPerColumn must equal size");
+        }
+    }
+
+    public Sudoku(Set<Candidate> givens, int boxesPerRow, int boxesPerColumn) {
+        this.givens = givens;
+
+        this.size = getSize();
+        this.boxesPerColumn = boxesPerColumn;
+        this.boxesPerRow = boxesPerRow;
+        if (this.boxesPerRow * this.boxesPerColumn != this.size) {
+            throw new IllegalArgumentException("boxesPerRow * boxesPerColumn must equal size");
+        }
     }
 
     public static Sudoku read(String json) {
