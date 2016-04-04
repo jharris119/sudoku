@@ -3,6 +3,7 @@ package csp;
 import com.google.common.base.Strings;
 import com.google.common.collect.Lists;
 import com.google.common.primitives.Ints;
+import org.json.*;
 
 import java.util.*;
 
@@ -18,35 +19,38 @@ public class Sudoku {
         this.size = getSize();
         this.boxesPerColumn = (int) (Math.sqrt(this.size));
         this.boxesPerRow = (int) (Math.sqrt(this.size));
+
+        if (this.boxesPerRow * this.boxesPerColumn != this.size) {
+            throw new IllegalArgumentException("boxesPerRow * boxesPerColumn must equal size");
+        }
     }
 
-    public static Sudoku read(List<List<Integer>> initial) {
-        HashSet<Candidate> candidates = new HashSet<>();
+    public Sudoku(Set<Candidate> givens, int boxesPerRow, int boxesPerColumn) {
+        this.givens = givens;
 
-        int rowIndex = 0, columnIndex;
-        Integer digit;
-        List<Integer> row;
-        Iterator<List<Integer>> rowIterator = initial.iterator();
-        Iterator<Integer> columnIterator;
+        this.size = getSize();
+        this.boxesPerColumn = boxesPerColumn;
+        this.boxesPerRow = boxesPerRow;
+        if (this.boxesPerRow * this.boxesPerColumn != this.size) {
+            throw new IllegalArgumentException("boxesPerRow * boxesPerColumn must equal size");
+        }
+    }
 
-        while (rowIterator.hasNext()) {
-            row = rowIterator.next();
-            ++rowIndex;
+    public static Sudoku read(String json) {
+        HashSet<Candidate> givens = new HashSet<>();
+        JSONArray puzzle = new JSONObject(json).getJSONArray("puzzle"), rowElements;
 
-            columnIndex = 0;
-            columnIterator = row.iterator();
-            while (columnIterator.hasNext()) {
-                digit = columnIterator.next();
-                ++columnIndex;
+        for (int row = 0; row < puzzle.length(); ++row) {
+            rowElements = puzzle.getJSONArray(row);
 
-                if (digit == null) {
-                    continue;
+            for (int column = 0; column <= rowElements.length(); ++column) {
+                if (!rowElements.isNull(column)) {
+                    givens.add(new Candidate(row + 1, column + 1, rowElements.getInt(column)));
                 }
-                candidates.add(new Candidate(rowIndex, columnIndex, digit));
             }
         }
 
-        return new Sudoku(candidates);
+        return new Sudoku(givens);
     }
 
     public Set<Candidate> solve() {
