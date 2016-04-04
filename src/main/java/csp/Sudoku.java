@@ -21,7 +21,7 @@ public class Sudoku {
     }
 
     public static Sudoku read(List<List<Integer>> initial) {
-        Set<Candidate> candidates = new HashSet();
+        HashSet<Candidate> candidates = new HashSet<>();
 
         int rowIndex = 0, columnIndex;
         Integer digit;
@@ -85,7 +85,7 @@ public class Sudoku {
     }
 
     private Set<Constraint> makeConstraints() {
-        Set<Constraint> constraints = new HashSet();
+        HashSet<Constraint> constraints = new HashSet<>();
         for (int m = 1; m <= size; ++m) {
             for (int n = 1; n <= size; ++n) {
                 constraints.add(new RowColumnConstraint(m, n));
@@ -98,12 +98,12 @@ public class Sudoku {
     }
 
     private Set<Candidate> makeCandidates() {
-        Set<Candidate> candidates = new HashSet();
+        HashSet<Candidate> candidates = new HashSet<>();
 
         for (int row = 1; row <= size; ++row) {
             for (int column = 1; column <= size; ++column) {
                 if (isGiven(row, column)) {
-                    candidates.add(getGiven(row, column).get());
+                    candidates.add(getGiven(row, column));
                 }
                 else {
                     for (int digit = 1; digit <= size; ++digit) {
@@ -119,11 +119,19 @@ public class Sudoku {
     }
 
     public boolean isGiven(int row, int column) {
-        return givens.stream().anyMatch(given -> given.row == row && given.column == column);
+        return givens
+                .stream()
+                .filter(given -> given.row == row && given.column == column)
+                .findAny()
+                .isPresent();
     }
 
-    public Optional<Candidate> getGiven(int row, int column) {
-        return givens.stream().filter(given -> given.row == row && given.column == column).findAny();
+    public Candidate getGiven(int row, int column) {
+        Optional<Candidate> result = givens
+                .stream()
+                .filter(given -> given.row == row && given.column == column)
+                .findAny();
+        return result.isPresent() ? result.get() : null;
     }
 
     public boolean givenDigitInRow(int row, int digit) {
