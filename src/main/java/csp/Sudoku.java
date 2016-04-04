@@ -36,9 +36,13 @@ public class Sudoku {
         }
     }
 
-    public static Sudoku read(String json) {
+    public static Sudoku read(String str) {
         HashSet<Candidate> givens = new HashSet<>();
-        JSONArray puzzle = new JSONObject(json).getJSONArray("puzzle"), rowElements;
+
+        JSONObject json = new JSONObject(str);
+        int boxesPerColumn = json.optInt("boxesPerColumn", 0),
+                boxesPerRow = json.optInt("boxesPerRow", 0);
+        JSONArray puzzle = json.getJSONArray("puzzle"), rowElements;
 
         for (int row = 0; row < puzzle.length(); ++row) {
             rowElements = puzzle.getJSONArray(row);
@@ -50,7 +54,13 @@ public class Sudoku {
             }
         }
 
-        return new Sudoku(givens);
+        if (boxesPerRow == 0 || boxesPerColumn == 0) {
+            return new Sudoku(givens);
+        }
+        else {
+            return new Sudoku(givens, boxesPerRow, boxesPerColumn);
+        }
+
     }
 
     public Set<Candidate> solve() {

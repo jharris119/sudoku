@@ -40,6 +40,22 @@ public class SudokuTest {
         this.add(new Sudoku.Candidate(9,3,5));
     }};
 
+    public String puzzle12x12 = new StringBuilder("{'puzzle':[")
+            .append("[null, 4, 8, null, null, null, null, null, 2, 12, null, null],")
+            .append("[null, 9, null, 6, 1, null, 7, null, null, null, 5, 4],")
+            .append("[7, null, null, null, null, 4, 8, 5, null, null, null, 3],")
+            .append("[8, null, null, null, 10, null, null, null, null, null, 3, null],")
+            .append("[null, null, 2, null, 9, 1, null, 7, 8, null, 12, null],")
+            .append("[null, 7, 10, null, null, null, null, 8, null, 9, null, null],")
+            .append("[null, null, 7, null, 5, null, null, null, null, 11, 12, null],")
+            .append("[null, 11, null, 4, 7, null, 6, 3, null, 1, null, null],")
+            .append("[null, 10, null, null, null, null, null, 2, null, null, null, 6],")
+            .append("[9, null, null, null, 2, 10, 12, null, null, null, null, 1],")
+            .append("[1, 2, null, null, null, 5, null, 4, 6, null, 7, null],")
+            .append("[null, null, 5, 10, null, null, null, null, null, 3, 11, null]")
+            .append("],'boxesPerRow':3,'boxesPerColumn':4}")
+            .toString();
+
     public Set<Sudoku.Candidate> puzzle16x16 = new HashSet<Sudoku.Candidate>() {{
         this.add(new Sudoku.Candidate(1,6,13));
         this.add(new Sudoku.Candidate(1,9,1));
@@ -154,6 +170,14 @@ public class SudokuTest {
     }
 
     @Test
+    public void testConstructor() throws Exception {
+        Sudoku sudoku = Sudoku.read(puzzle12x12);
+        assertEquals(12, sudoku.size);
+        assertEquals(3, sudoku.boxesPerRow);
+        assertEquals(4, sudoku.boxesPerColumn);
+    }
+
+    @Test
     public void testRead() throws Exception {
         String json = "{ puzzle: " +
             "[[null, null, 6, 9, null, null, null, 8, 7]," +
@@ -176,8 +200,8 @@ public class SudokuTest {
 
     @Test
     public void testGetGiven() throws Exception {
-        assertEquals(Optional.of(new Sudoku.Candidate(5,8,1)), sudoku1.getGiven(5,8));
-        assertEquals(Optional.empty(), sudoku1.getGiven(3,4));
+        assertEquals(new Sudoku.Candidate(5,8,1), sudoku1.getGiven(5,8));
+        assertNull(sudoku1.getGiven(3,4));
     }
 
     @Test
