@@ -38,5 +38,6 @@ module.exports = {
         include: PATHS.app
       }
     ]
-  }
+  },
+  devtool: 'eval-source-map'
 };
