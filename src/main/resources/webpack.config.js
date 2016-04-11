@@ -3,7 +3,8 @@ const webpack = require('webpack');
 
 const PATHS = {
   app: path.join(__dirname, 'app'),
-  build: path.join(__dirname, 'public')
+  build: path.join(__dirname, 'public'),
+  style: path.join(__dirname, 'style')
 };
 
 module.exports = {
@@ -36,6 +37,11 @@ module.exports = {
         test: /\.jsx?$/,
         loaders: ['babel?cacheDirectory'],
         include: PATHS.app
+      },
+      {
+        test: /\.s(a|c)ss$/,
+        loaders: ['style', 'css', 'sass'],
+        include: PATHS.style
       }
     ]
   },
