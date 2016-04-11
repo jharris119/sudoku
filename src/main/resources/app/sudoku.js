@@ -13,10 +13,21 @@ export default class Sudoku extends React.Component {
 
   render() {
     let {
-      cellsPerBoxRow: boxesPerColumn,
-      cellsPerBoxColumn: boxesPerRow
+      boxesPerRow: cellsPerBoxColumn,
+      boxesPerColumn: cellsPerBoxRow
     } = this.props;
+    let size = cellsPerBoxRow * cellsPerBoxColumn;
 
-    return (<SudokuCell />);
+    return (
+      <div>
+        {
+          _.range(size).map((r) => {
+            return _.range(size).map((c) => {
+              return (<SudokuCell row={r} column={c} />);
+            });
+          })
+        }
+      </div>
+    );
   }
 }

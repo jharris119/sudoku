@@ -12,13 +12,34 @@ export default class SudokuApp extends React.Component {
     };
   }
 
+  changeSize() {
+    this.setState({
+      boxesPerRow: document.findElementById('boxesPerRow').value,
+      boxesPerColumn: document.findElementById('boxesPerColumn').value
+    });
+  }
+
   render() {
     let {
       boxesPerRow,
       boxesPerColumn
     } = this.state;
 
-    return (<Sudoku boxesPerRow={boxesPerRow} boxesPerColumn={boxesPerColumn} />);
+    return (
+      <div>
+        <div id="form">
+          <input id="boxesPerRow" type="number" min="2" defaultValue="3" onChange={this.changeSize} />
+          <label for="boxesPerRow">boxes per row</label>
+          &times;
+          <input id="boxesPerColumn" type="number" min="2" defaultValue="3" onChange={this.changeSize} />
+          <label for="boxesPerColumn">boxes per column</label>
+          <button id="solve">Solve</button>
+        </div>
+        <div id="sudoku">
+          <Sudoku boxesPerRow={boxesPerRow} boxesPerColumn={boxesPerColumn} />
+        </div>
+      </div>
+    );
   }
 }
 
