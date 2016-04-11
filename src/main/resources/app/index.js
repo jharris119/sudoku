@@ -1,5 +1,6 @@
 import React from 'react';
 import { render } from 'react-dom';
+import { Button, Input } from 'react-bootstrap';
 
 import Sudoku from './sudoku.js'
 
@@ -28,12 +29,20 @@ export default class SudokuApp extends React.Component {
     return (
       <div>
         <div id="form">
-          <input id="boxesPerRow" type="number" min="2" defaultValue="3" onChange={this.changeSize} />
-          <label for="boxesPerRow">boxes per row</label>
+          <Input type="number"
+                 id="boxesPerRow"
+                 label="boxes per row"
+                 min="2"
+                 defaultValue="3"
+                 onChange={this.changeSize} />
           &times;
-          <input id="boxesPerColumn" type="number" min="2" defaultValue="3" onChange={this.changeSize} />
-          <label for="boxesPerColumn">boxes per column</label>
-          <button id="solve">Solve</button>
+          <Input type="number"
+                 id="boxesPerColumn"
+                 label="boxes per column"
+                 min="2"
+                 defaultValue="3"
+                 onChange={this.changeSize} />
+          <Button id="solve" bsStyle="primary">Solve</Button>
         </div>
         <div id="sudoku">
           <Sudoku boxesPerRow={boxesPerRow} boxesPerColumn={boxesPerColumn} />
