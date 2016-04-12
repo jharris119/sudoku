@@ -1,9 +1,15 @@
 import React from 'react';
 import { render } from 'react-dom';
 import { Button, Grid, Row, Col, Input, Panel } from 'react-bootstrap';
-import Radium from 'radium';
+import _ from 'lodash';
+import $ from 'jquery';
 
-import Sudoku from './sudoku.js'
+import Sudoku from './sudoku.js';
+
+require('../styles/style.scss');
+require('../styles/dummy.scss');
+
+const dummyStylesheet = document.styleSheets[document.styleSheets.length - 1];
 
 export default class SudokuApp extends React.Component {
   constructor(props) {
@@ -12,13 +18,47 @@ export default class SudokuApp extends React.Component {
       boxesPerRow: 3,
       boxesPerColumn: 3
     };
+    _.bindAll(this, 'changeSize');
+  }
+
+  componentDidMount() {
+    this.updateStylesheet();
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    this.updateStylesheet();
   }
 
   changeSize() {
-    this.setState({
-      boxesPerRow: document.findElementById('boxesPerRow').value,
-      boxesPerColumn: document.findElementById('boxesPerColumn').value
-    });
+    if (document.getElementById('boxesPerRow').value && document.getElementById('boxesPerColumn').value) {
+      this.setState({
+        boxesPerRow: document.getElementById('boxesPerRow').value,
+        boxesPerColumn: document.getElementById('boxesPerColumn').value
+      });
+    }
+  }
+
+  clearStylesheet() {
+    while (dummyStylesheet.rules.length) {
+      dummyStylesheet.deleteRule(0);
+    }
+  }
+
+  updateStylesheet() {
+    this.clearStylesheet();
+
+    let containerWidth = $('#sudoku').width();
+    let cellWidth = ((((containerWidth - 5) / this.state.boxesPerRow) - 4) / this.state.boxesPerColumn) - 2;
+
+    let verticalRule = `.cell:nth-child(${this.state.boxesPerRow}n) { border-right: 5px solid black; }`,
+        horizontalRule = `#sudoku :nth-child(${this.state.boxesPerColumn}n) .cell { border-bottom: 5px solid black; }`,
+        widthRule = `.cell { width: ${Math.floor(cellWidth)}px; }`,
+        heightRule = `.cell { height: ${Math.floor(cellWidth)}px; }`;
+
+    dummyStylesheet.insertRule(verticalRule, 0);
+    dummyStylesheet.insertRule(horizontalRule, 0);
+    dummyStylesheet.insertRule(widthRule, 0);
+    dummyStylesheet.insertRule(heightRule, 0);
   }
 
   render() {
@@ -28,10 +68,10 @@ export default class SudokuApp extends React.Component {
     } = this.state;
 
     return (
-      <Panel className="wrapper" style={styles.panel}>
-        <Grid style={styles.grid}>
+      <Panel className="wrapper">
+        <Grid id="button-container">
           <Row>
-            <Col xs={4}>
+            <Col style={{marginRight: '6px'}}>
               <Input type="number"
                      id="boxesPerRow"
                      label="boxes per row"
@@ -40,10 +80,10 @@ export default class SudokuApp extends React.Component {
                      bsSize="large"
                      onChange={this.changeSize} />
             </Col>
-            <Col xs={1}>
+            <Col>
               &times;
             </Col>
-            <Col xs={4}>
+            <Col style={{marginLeft: '6px'}}>
               <Input type="number"
                      id="boxesPerColumn"
                      label="boxes per column"
@@ -52,36 +92,15 @@ export default class SudokuApp extends React.Component {
                      bsSize="large"
                      onChange={this.changeSize} />
             </Col>
-            <Col xs={3}>
+            <Col>
               <Button id="solve" bsStyle="primary">Solve</Button>
             </Col>
           </Row>
         </Grid>
-        <div id="sudoku">
-          <Sudoku boxesPerRow={boxesPerRow} boxesPerColumn={boxesPerColumn} />
-        </div>
+        <Sudoku size={boxesPerRow * boxesPerColumn} />
       </Panel>
     );
   }
 }
-
-const styles = {
-  panel: {
-    width: '768px',
-    position: 'fixed',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    padding: 'none',
-    border: 'none'
-  },
-  grid: {
-    width: '100%',
-    border: '1px solid black',
-    marginBottom: '10px'
-  }
-}
-
-SudokuApp = Radium(SudokuApp);
 
 render(<SudokuApp />, document.getElementById('app'));

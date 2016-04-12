@@ -19,7 +19,7 @@ export default class Sudoku extends React.Component {
     let size = cellsPerBoxRow * cellsPerBoxColumn;
 
     return (
-      <div>
+      <div id="sudoku">
         {
           _.range(size).map((r) => {
             return (
