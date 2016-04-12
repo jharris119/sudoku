@@ -22,9 +22,15 @@ export default class Sudoku extends React.Component {
       <div>
         {
           _.range(size).map((r) => {
-            return _.range(size).map((c) => {
-              return (<SudokuCell row={r} column={c} />);
-            });
+            return (
+              <div id={`row${r}`}>{
+                _.range(size).map((c) => {
+                  return (
+                    <SudokuCell row={r + 1} column={c + 1} size={size} />
+                  );
+                })}
+              </div>
+            );
           })
         }
       </div>
