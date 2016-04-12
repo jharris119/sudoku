@@ -8,18 +8,37 @@ export default class SudokuCell extends React.Component {
     this.styles = {
       base: {
         width: '62px',
-        height: '62px'
+        height: '62px',
+        float: 'left',
+        border: '1px solid black'
       }
     }
   }
 
-  renderStyles() {
-    let cellWidth = document.getElementById('content').width / this.props.size;
-    this.styles.base.width = this.styles.base.height = cellWidth + 'px';
+  getStyle() {
+    let borderStyles = {};
+    if (this.props.row == 1) {
+      borderStyles.borderTop = '5px solid black';
+    }
+    if (this.props.column == 1) {
+      borderStyles.clear = 'both';
+      borderStyles.borderLeft = '5px solid black';
+    }
+    if (this.props.boxBottom) {
+      borderStyles.borderBottom = '5px solid black';
+    }
+    if (this.props.boxRight) {
+      borderStyles.borderRight = '5px solid black';
+    }
+    return Object.assign(this.styles.base, borderStyles);
   }
 
   render() {
-    return (<input style={this.styles.base} id={`cell[${this.props.row},${this.props.column}]`} type="text" />);
+    return (
+      <div style={this.getStyle()}>
+        <input style={{width: '100%', height: '100%', border: 'none'}} id={`cell[${this.props.row},${this.props.column}]`} type="text" />
+      </div>
+    );
   }
 }
 
