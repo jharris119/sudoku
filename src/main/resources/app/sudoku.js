@@ -24,7 +24,7 @@ export default class Sudoku extends React.Component {
   onUpdateCell(row, column, digit) {
     console.log('Sudoku.onUpdateCell');
 
-    let key = `[${row},${column}]`,
+    let key = `${row},${column}`,
         newGivens = Object.assign({}, this.state.givens);
 
     if (digit) {

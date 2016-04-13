@@ -18,7 +18,7 @@ export default class SudokuApp extends React.Component {
       boxesPerRow: 3,
       boxesPerColumn: 3
     };
-    _.bindAll(this, 'changeSize');
+    _.bindAll(this, 'changeSize', 'handleSubmit');
   }
 
   componentDidMount() {
@@ -61,6 +61,25 @@ export default class SudokuApp extends React.Component {
     dummyStylesheet.insertRule(heightRule, 0);
   }
 
+  convertGivensToJSON(obj) {
+    return _.chain(obj).mapValues((value, key) => {
+      let s = key.split(',');
+      return {
+        row: s[0],
+        column: s[1],
+        digit: value
+      }
+    }).values().value();
+  }
+
+  handleSubmit() {
+    if (this.refs.sudoku.state.solved) {
+      return;
+    }
+
+    console.log(this.convertGivensToJSON(this.refs.sudoku.state.givens));
+  }
+
   render() {
     let {
       boxesPerRow,
@@ -93,11 +112,11 @@ export default class SudokuApp extends React.Component {
                      onChange={this.changeSize} />
             </Col>
             <Col>
-              <Button id="solve" bsStyle="primary">Solve</Button>
+              <Button id="solve" bsStyle="primary" onClick={this.handleSubmit}>Solve</Button>
             </Col>
           </Row>
         </Grid>
-        <Sudoku size={boxesPerRow * boxesPerColumn} />
+        <Sudoku size={boxesPerRow * boxesPerColumn} ref='sudoku' />
       </Panel>
     );
   }
