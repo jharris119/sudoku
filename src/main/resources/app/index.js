@@ -82,10 +82,11 @@ export default class SudokuApp extends React.Component {
       return null;
     }
 
-    return _.inject(array, {}, (acc, val) => {
+    return _.reduce(array, (acc, val) => {
       let { row, column, digit } = val;
       acc[`${row},${column}`] = digit;
-    });
+      return acc;
+    }, {});
   }
 
   handleSubmit() {

@@ -24,22 +24,43 @@ export default class Sudoku extends React.Component {
   onUpdateCell(row, column, digit) {
     console.log('Sudoku.onUpdateCell');
 
-    let key = `${row},${column}`,
-        newGivens = Object.assign({}, this.state.givens);
+    let newGivens = Object.assign({}, this.state.givens);
 
     if (digit) {
-      newGivens[key] = digit;
+      newGivens[this.key(row, column)] = digit;
     }
     else {
-      delete newGivens[key];
+      delete newGivens[this.key(row, column)];
     }
     this.setState({
       givens: newGivens
     });
   }
 
+  key(row, column) {
+    return `${row},${column}`;
+  }
+
   render() {
     console.log('Sudoku.render');
+
+    let cell = (r, c) => {
+      let row = r + 1,
+          column = c + 1;
+
+      if (this.state.solution) {
+        return (
+          <span>{this.state.solution[this.key(row, column)]}</span>
+        );
+      }
+      else {
+        return (
+          <SudokuCell row={row}
+                      column={column}
+                      onUpdateCell={this.onUpdateCell} />
+        );
+      }
+    }
 
     return (
       <div id="sudoku">
@@ -48,11 +69,7 @@ export default class Sudoku extends React.Component {
             return (
               <div id={`row${r}`}>{
                 _.range(this.props.size).map((c) => {
-                  return (
-                    <SudokuCell row={r + 1}
-                                column={c + 1}
-                                onUpdateCell={this.onUpdateCell} />
-                  );
+                  return cell(r,c);
                 })}
               </div>
             );

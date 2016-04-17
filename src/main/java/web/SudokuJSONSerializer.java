@@ -18,7 +18,7 @@ public class SudokuJSONSerializer {
         if (!sudoku.isSolved()) {
             return new JSONStringer()
                     .object()
-                    .key("solution")
+                    .key("givens")
                     .value(null)
                     .endObject()
                     .toString();
@@ -28,7 +28,7 @@ public class SudokuJSONSerializer {
         sudoku.getSolution().forEach((candidate) -> candidates.put(makeCandidate(candidate)));
         return new JSONStringer()
                 .object()
-                .key("givens")
+                .key("solution")
                 .value(candidates)
                 .endObject()
                 .toString();
