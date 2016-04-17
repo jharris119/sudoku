@@ -108,7 +108,7 @@ export default class SudokuApp extends React.Component {
 
       let solution = JSON.parse(data).solution;
       sudoku.setState({
-        solution: this.convertJSONToGivens(solution);
+        solution: this.convertJSONToGivens(solution)
       });
     });
   }
