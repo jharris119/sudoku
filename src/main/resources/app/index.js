@@ -26,6 +26,14 @@ export default class SudokuApp extends React.Component {
     this.updateStylesheet();
   }
 
+  componentWillUpdate(newProps, newState) {
+    if (newState.solved != this.state.solved) {
+      this.refs.sudoku.setState({
+        solution: this.convertJSONToGivens(newState.solution)
+      });
+    }
+  }
+
   componentDidUpdate(prevProps, prevState) {
     this.updateStylesheet();
   }
@@ -66,8 +74,8 @@ export default class SudokuApp extends React.Component {
    * Technically, converts to an array of JSON objects, so this
    * still needs to be associated with a key to be a legit JSON object.
    */
-  convertGivensToJSON(obj) {
-    return _.chain(obj).mapValues((value, key) => {
+  convertGivensToJSON() {
+    return _.chain(this.refs.sudoku.state.givens).mapValues((value, key) => {
       let s = key.split(',');
       return {
         row: s[0],
@@ -90,26 +98,17 @@ export default class SudokuApp extends React.Component {
   }
 
   handleSubmit() {
-    let sudoku = this.refs.sudoku;
-
-    if (sudoku.state.solved) {
-      return;
-    }
-
     let requestData = {
-      givens: this.convertGivensToJSON(sudoku.state.givens),
+      givens: this.convertGivensToJSON(),
       boxesPerRow: this.state.boxesPerRow,
       boxesPerColumn: this.state.boxesPerColumn
     };
 
     $.post(endpoint, JSON.stringify(requestData), 'json').then((data, status, jqXhr) => {
-      console.log(data);
-      console.log(status);
-      console.log(jqXhr);
-
       let solution = JSON.parse(data).solution;
-      sudoku.setState({
-        solution: this.convertJSONToGivens(solution)
+      this.setState({
+        solution: solution,
+        solved: true
       });
     });
   }
@@ -131,6 +130,7 @@ export default class SudokuApp extends React.Component {
                      min="2"
                      defaultValue="3"
                      bsSize="large"
+                     disabled={!!this.state.solution}
                      onChange={this.changeSize} />
             </Col>
             <Col>
@@ -143,6 +143,7 @@ export default class SudokuApp extends React.Component {
                      min="2"
                      defaultValue="3"
                      bsSize="large"
+                     disabled={!!this.state.solution}
                      onChange={this.changeSize} />
             </Col>
             <Col>
