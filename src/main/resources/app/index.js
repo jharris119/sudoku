@@ -10,6 +10,7 @@ require('../styles/style.scss');
 require('../styles/dummy.scss');
 
 const dummyStylesheet = document.styleSheets[document.styleSheets.length - 1];
+const endpoint = 'solve';
 
 export default class SudokuApp extends React.Component {
   constructor(props) {
@@ -61,6 +62,10 @@ export default class SudokuApp extends React.Component {
     dummyStylesheet.insertRule(heightRule, 0);
   }
 
+  /**
+   * Technically, converts to an array of JSON objects, so this
+   * still needs to be associated with a key to be a legit JSON object.
+   */
   convertGivensToJSON(obj) {
     return _.chain(obj).mapValues((value, key) => {
       let s = key.split(',');
@@ -72,12 +77,40 @@ export default class SudokuApp extends React.Component {
     }).values().value();
   }
 
+  convertJSONToGivens(array) {
+    if (!array) {
+      return null;
+    }
+
+    return _.inject(array, {}, (acc, val) => {
+      let { row, column, digit } = val;
+      acc[`${row},${column}`] = digit;
+    });
+  }
+
   handleSubmit() {
-    if (this.refs.sudoku.state.solved) {
+    let sudoku = this.refs.sudoku;
+
+    if (sudoku.state.solved) {
       return;
     }
 
-    console.log(this.convertGivensToJSON(this.refs.sudoku.state.givens));
+    let requestData = {
+      givens: this.convertGivensToJSON(sudoku.state.givens),
+      boxesPerRow: this.state.boxesPerRow,
+      boxesPerColumn: this.state.boxesPerColumn
+    };
+
+    $.post(endpoint, JSON.stringify(requestData), 'json').then((data, status, jqXhr) => {
+      console.log(data);
+      console.log(status);
+      console.log(jqXhr);
+
+      let solution = JSON.parse(data).solution;
+      sudoku.setState({
+        solution: this.convertJSONToGivens(solution);
+      });
+    });
   }
 
   render() {

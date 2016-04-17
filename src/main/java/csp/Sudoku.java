@@ -132,6 +132,23 @@ public class Sudoku {
         return candidates;
     }
 
+    public Set<Candidate> getGivens() {
+        return Collections.unmodifiableSet(givens);
+    }
+
+    public Set<Candidate> getSolution() {
+        if (isSolved()) {
+            return Collections.unmodifiableSet(solution);
+        }
+        else {
+            return null;
+        }
+    }
+
+    public boolean isSolved() {
+        return solution != null;
+    }
+
     public boolean isGiven(int row, int column) {
         return givens
                 .stream()
@@ -223,8 +240,8 @@ public class Sudoku {
         return Strings.repeat("-", ((cellWidth + 1) * boxesPerColumn) * boxesPerRow + 1);
     }
 
-    static class Candidate {
-        final int row, column, digit;
+    public static class Candidate {
+        public final int row, column, digit;
 
         public Candidate(int row, int column, int digit) {
             this.row = row;

@@ -8,7 +8,7 @@ export default class Sudoku extends React.Component {
     super(props);
     this.state = {
       givens: {},
-      solved: false
+      solution: null
     }
     _.bindAll(this, 'onUpdateCell');
   }
