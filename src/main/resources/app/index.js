@@ -1,6 +1,6 @@
 import React from 'react';
 import { render } from 'react-dom';
-import { Button, Grid, Row, Col, Input, Panel } from 'react-bootstrap';
+import { Button, Grid, Input, Panel } from 'react-bootstrap';
 import _ from 'lodash';
 import $ from 'jquery';
 
@@ -57,17 +57,24 @@ export default class SudokuApp extends React.Component {
     this.clearStylesheet();
 
     let containerWidth = $('#sudoku').width();
-    let cellWidth = ((((containerWidth - 5) / this.state.boxesPerRow) - 4) / this.state.boxesPerColumn) - 2;
+    let cellWidth = Math.floor(((((containerWidth - 5) / this.state.boxesPerRow) - 4) / this.state.boxesPerColumn) - 2);
 
     let verticalRule = `.cell:nth-child(${this.state.boxesPerRow}n) { border-right: 5px solid black; }`,
         horizontalRule = `#sudoku :nth-child(${this.state.boxesPerColumn}n) .cell { border-bottom: 5px solid black; }`,
-        widthRule = `.cell { width: ${Math.floor(cellWidth)}px; }`,
-        heightRule = `.cell { height: ${Math.floor(cellWidth)}px; }`;
+        widthRule = `.cell { width: ${cellWidth}px; }`,
+        heightRule = `.cell { height: ${cellWidth}px; }`;
 
     dummyStylesheet.insertRule(verticalRule, 0);
     dummyStylesheet.insertRule(horizontalRule, 0);
     dummyStylesheet.insertRule(widthRule, 0);
     dummyStylesheet.insertRule(heightRule, 0);
+
+    let actualCellWidth = $('#sudoku .cell').width();
+    let fontSizeRule = `.cell input { font-size: ${actualCellWidth * 0.9}px; }`,
+        lineHeightRule = `.cell input { line-height: ${actualCellWidth}px; }`;
+
+    dummyStylesheet.insertRule(fontSizeRule, 0);
+    dummyStylesheet.insertRule(lineHeightRule, 0);
   }
 
   /**
