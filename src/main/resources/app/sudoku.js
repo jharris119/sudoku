@@ -13,17 +13,7 @@ export default class Sudoku extends React.Component {
     _.bindAll(this, 'onUpdateCell');
   }
 
-  componentWillUpdate(nextProps, nextState) {
-    console.log('Sudoku.componentWillUpdate: %O, %O', nextProps, nextState);
-  }
-
-  componentDidUpdate(prevProps, prevState) {
-    console.log('Sudoku.componentDidUpdate: %O, %O', prevProps, prevState);
-  }
-
   onUpdateCell(row, column, digit) {
-    console.log('Sudoku.onUpdateCell');
-
     let newGivens = Object.assign({}, this.state.givens);
 
     if (digit) {
