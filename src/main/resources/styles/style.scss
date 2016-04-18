@@ -1,6 +1,10 @@
 $thin-border: 1px solid black;
 $thick-border: 5px solid black;
 
+body {
+  color: darkSlateGray;
+}
+
 .wrapper {
   width: 768px;
   position: fixed;

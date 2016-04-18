@@ -40,7 +40,10 @@ export default class Sudoku extends React.Component {
 
       if (this.state.solution) {
         return (
-          <span className="cell">{this.state.solution[this.key(row, column)]}</span>
+          <span className="cell"
+                style={_.has(this.state.givens, this.key(row, column)) ? { color: 'indigo' } : void 0}>
+            {this.state.solution[this.key(row, column)]}
+          </span>
         );
       }
       else {
