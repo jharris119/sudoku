@@ -14,23 +14,26 @@ public class SudokuJSONSerializer {
     }
 
     static String toJSON(Sudoku sudoku) {
+        JSONArray arr = new JSONArray();
+
         if (!sudoku.isSolved()) {
+            sudoku.getGivens().forEach((given) -> arr.put(stringifyCandidate(given)));
             return new JSONStringer()
                     .object()
                     .key("givens")
-                    .value(stringifyGivens(sudoku))
+                    .value(arr)
                     .endObject()
                     .toString();
         }
-
-        JSONArray candidates = new JSONArray();
-        sudoku.getSolution().forEach((candidate) -> candidates.put(stringifyCandidate(candidate)));
-        return new JSONStringer()
-                .object()
-                .key("solution")
-                .value(candidates)
-                .endObject()
-                .toString();
+        else {
+            sudoku.getSolution().forEach((candidate) -> arr.put(stringifyCandidate(candidate)));
+            return new JSONStringer()
+                    .object()
+                    .key("solution")
+                    .value(arr)
+                    .endObject()
+                    .toString();
+        }
     }
 
     private static Set<Sudoku.Candidate> parseGivens(JSONObject root) {
@@ -41,13 +44,6 @@ public class SudokuJSONSerializer {
             candidates.add(parseCandidate(givens.getJSONObject(i)));
         }
         return candidates;
-    }
-
-    private static JSONArray stringifyGivens(Sudoku sudoku) {
-        JSONArray arr = new JSONArray();
-
-        sudoku.getGivens().forEach((given) -> arr.put(stringifyCandidate(given)));
-        return arr;
     }
 
     private static Sudoku.Candidate parseCandidate(JSONObject candidate) {
