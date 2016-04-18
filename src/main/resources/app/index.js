@@ -122,34 +122,30 @@ export default class SudokuApp extends React.Component {
     return (
       <Panel className="wrapper">
         <Grid id="button-container">
-          <Row>
-            <Col style={{marginRight: '6px'}}>
-              <Input type="number"
-                     id="boxesPerRow"
-                     label="boxes per row"
-                     min="2"
-                     defaultValue="3"
-                     bsSize="large"
-                     disabled={!!this.state.solution}
-                     onChange={this.changeSize} />
-            </Col>
-            <Col>
-              &times;
-            </Col>
-            <Col style={{marginLeft: '6px'}}>
-              <Input type="number"
-                     id="boxesPerColumn"
-                     label="boxes per column"
-                     min="2"
-                     defaultValue="3"
-                     bsSize="large"
-                     disabled={!!this.state.solution}
-                     onChange={this.changeSize} />
-            </Col>
-            <Col>
-              <Button id="solve" bsStyle="primary" onClick={this.handleSubmit}>Solve</Button>
-            </Col>
-          </Row>
+          <Input type="number"
+                 id="boxesPerRow"
+                 label="boxes per row"
+                 min="2"
+                 defaultValue="3"
+                 bsSize="large"
+                 disabled={!!this.state.solution}
+                 onChange={this.changeSize} />
+          <span>&times;</span>
+          <Input type="number"
+                 id="boxesPerColumn"
+                 label="boxes per column"
+                 min="2"
+                 defaultValue="3"
+                 bsSize="large"
+                 disabled={!!this.state.solution}
+                 onChange={this.changeSize} />
+          <Button id="solve"
+                  bsStyle="primary"
+                  bsSize="large"
+                  onClick={this.handleSubmit}
+                  disabled={!!this.state.solution}>
+            Solve
+          </Button>
         </Grid>
         <Sudoku size={boxesPerRow * boxesPerColumn} ref='sudoku' />
       </Panel>
