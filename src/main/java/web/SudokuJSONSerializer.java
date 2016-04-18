@@ -5,7 +5,6 @@ import org.json.*;
 
 import java.util.HashSet;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 public class SudokuJSONSerializer {
 
@@ -19,13 +18,13 @@ public class SudokuJSONSerializer {
             return new JSONStringer()
                     .object()
                     .key("givens")
-                    .value(null)
+                    .value(stringifyGivens(sudoku))
                     .endObject()
                     .toString();
         }
 
         JSONArray candidates = new JSONArray();
-        sudoku.getSolution().forEach((candidate) -> candidates.put(makeCandidate(candidate)));
+        sudoku.getSolution().forEach((candidate) -> candidates.put(stringifyCandidate(candidate)));
         return new JSONStringer()
                 .object()
                 .key("solution")
@@ -44,11 +43,18 @@ public class SudokuJSONSerializer {
         return candidates;
     }
 
+    private static JSONArray stringifyGivens(Sudoku sudoku) {
+        JSONArray arr = new JSONArray();
+
+        sudoku.getGivens().forEach((given) -> arr.put(stringifyCandidate(given)));
+        return arr;
+    }
+
     private static Sudoku.Candidate parseCandidate(JSONObject candidate) {
         return new Sudoku.Candidate(candidate.getInt("row"), candidate.getInt("column"), candidate.getInt("digit"));
     }
 
-    private static JSONObject makeCandidate(Sudoku.Candidate candidate) {
+    private static JSONObject stringifyCandidate(Sudoku.Candidate candidate) {
         JSONObject blob = new JSONObject();
         blob.put("row", candidate.row);
         blob.put("column", candidate.column);

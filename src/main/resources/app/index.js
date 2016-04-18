@@ -70,8 +70,8 @@ export default class SudokuApp extends React.Component {
     dummyStylesheet.insertRule(heightRule, 0);
 
     let actualCellWidth = $('#sudoku .cell').width();
-    let fontSizeRule = `.cell input { font-size: ${actualCellWidth * 0.9}px; }`,
-        lineHeightRule = `.cell input { line-height: ${actualCellWidth}px; }`;
+    let fontSizeRule = `.cell { font-size: ${actualCellWidth * 0.9}px; }`,
+        lineHeightRule = `.cell { line-height: ${actualCellWidth}px; }`;
 
     dummyStylesheet.insertRule(fontSizeRule, 0);
     dummyStylesheet.insertRule(lineHeightRule, 0);
