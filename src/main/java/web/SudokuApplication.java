@@ -19,6 +19,10 @@ public class SudokuApplication {
     }
 
     public static void main(String... args) {
+        ProcessBuilder processBuilder = new ProcessBuilder();
+        String port = processBuilder.environment().get("PORT");
+        port(port != null ? Integer.parseInt(port) : 4567);
+
         staticFileLocation("/public");
         post("/solve", (req, res) -> {
             SudokuApplication app = new SudokuApplication(req.body());
