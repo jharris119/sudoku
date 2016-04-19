@@ -1,10 +1,13 @@
 group 'info.jayharris'
 version '1.0-SNAPSHOT'
 
+apply plugin: 'application'
 apply plugin: 'java'
 apply plugin: 'idea'
 
 sourceCompatibility = 1.8
+
+mainClassName = 'SudokuApplication'
 
 repositories {
     mavenCentral()
@@ -26,3 +29,5 @@ idea {
         downloadSources = true
     }
 }
+
+task stage(dependsOn: ['clean', 'installDist'])
