@@ -61,13 +61,13 @@ export default class SudokuApp extends React.Component {
 
     let verticalRule = `.cell:nth-child(${this.state.boxesPerRow}n) { border-right: 5px solid black; }`,
         horizontalRule = `#sudoku :nth-child(${this.state.boxesPerColumn}n) .cell { border-bottom: 5px solid black; }`,
-        widthRule = `.cell { width: ${cellWidth}px; }`,
-        heightRule = `.cell { height: ${cellWidth}px; }`;
+        cellWidthRule = `.cell { width: ${cellWidth}px; }`,
+        cellHeightRule = `.cell { height: ${cellWidth}px; }`;
 
     dummyStylesheet.insertRule(verticalRule, 0);
     dummyStylesheet.insertRule(horizontalRule, 0);
-    dummyStylesheet.insertRule(widthRule, 0);
-    dummyStylesheet.insertRule(heightRule, 0);
+    dummyStylesheet.insertRule(cellWidthRule, 0);
+    dummyStylesheet.insertRule(cellHeightRule, 0);
 
     let actualCellWidth = $('#sudoku .cell').width();
     let fontSizeRule = `.cell { font-size: ${actualCellWidth * 0.9}px; }`,
@@ -75,6 +75,11 @@ export default class SudokuApp extends React.Component {
 
     dummyStylesheet.insertRule(fontSizeRule, 0);
     dummyStylesheet.insertRule(lineHeightRule, 0);
+
+    let actualRowWidth = document.querySelector('#row0 .cell').offsetWidth * this.state.boxesPerRow * this.state.boxesPerColumn;
+    let rowWidthRule = `#sudoku > div { width: ${actualRowWidth}px; }`;
+
+    dummyStylesheet.insertRule(rowWidthRule, 0);
   }
 
   /**

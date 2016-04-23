@@ -18,6 +18,9 @@ body {
 #button-container {
   width: 100%;
   margin-bottom: 10px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 
   > * {
     display: inline-block;
@@ -27,6 +30,14 @@ body {
   .form-group input {
     width: 9rem;
   }
+
+  button {
+    align-self: stretch;
+  }
+}
+
+#sudoku > div {
+  margin: 0 auto;
 }
 
 #sudoku > *:first-child > .cell {
