@@ -3,8 +3,8 @@ const webpack = require('webpack');
 
 const PATHS = {
   app: path.join(__dirname, 'app'),
-  build: path.join(__dirname, 'public'),
-  style: path.join(__dirname, 'style')
+  build: path.join(__dirname, 'src/main/resources/public'),
+  style: path.join(__dirname, 'styles')
 };
 
 module.exports = {
